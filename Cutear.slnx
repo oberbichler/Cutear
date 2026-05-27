@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Cutear/Cutear.csproj" />
+  <Project Path="Cutear.Tests/Cutear.Tests.csproj" />
+  <Project Path="Cutear.Benchmarks/Cutear.Benchmarks.csproj" />
+</Solution>

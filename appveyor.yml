@@ -1,9 +1,0 @@
-version: 0.1.{build}
-image: Visual Studio 2017
-before_build:
-  - nuget restore
-build:
-  project: Earcut.sln
-  verbosity: minimal
-test_script:
-- cmd: nunit3-console C:\projects\earcut-net\tests\bin\Tests.dll --result=results.xml;format=AppVeyor
