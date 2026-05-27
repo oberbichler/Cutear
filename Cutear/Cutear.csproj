@@ -7,6 +7,11 @@
     <Version>1.0.0</Version>
     <Authors>Thomas Oberbichler</Authors>
     <Copyright>Copyright © Thomas Oberbichler 2018</Copyright>
+    <Description>C# port of the Mapbox Earcut polygon triangulation library.</Description>
+    <PackageTags>earcut;triangulation;polygon;geometry;tessellation;mesh;csharp;dotnet;netstandard;zero-allocation;performance;mapbox;unity</PackageTags>
+    <PackageProjectUrl>https://github.com/oberbichler/Cutear</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/oberbichler/Cutear</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
