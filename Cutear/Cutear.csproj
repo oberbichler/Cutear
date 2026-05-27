@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
+    <AssemblyName>Cutear</AssemblyName>
+    <RootNamespace>Cutear</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>Thomas Oberbichler</Authors>
+    <Copyright>Copyright © Thomas Oberbichler 2018</Copyright>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+  </ItemGroup>
+
+</Project>
