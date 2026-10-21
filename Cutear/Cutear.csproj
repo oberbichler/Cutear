@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net10.0</TargetFrameworks>
     <AssemblyName>Cutear</AssemblyName>
     <RootNamespace>Cutear</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Thomas Oberbichler</Authors>
     <Copyright>Copyright © Thomas Oberbichler 2018</Copyright>
     <Description>C# port of the Mapbox Earcut polygon triangulation library.</Description>
