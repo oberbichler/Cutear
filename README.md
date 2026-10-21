@@ -15,7 +15,8 @@ A high-performance, **zero-allocation** C# port of the [Mapbox Earcut](https://g
 - **Fast & Robust Triangulation**: Handles 2D/3D polygons with nested holes, touch-points, and self-intersections.
 - **Zero Heap Allocations**: Uses thread-local pooling (`[ThreadStatic]`) to guarantee 0 bytes of internal memory allocation during triangulation.
 - **Direct Memory Spans**: Native support for `ReadOnlySpan<double>` and `ReadOnlySpan<int>` to eliminate copy and interface overhead.
-- **100% Mapbox Parity**: Aligned with the latest bugfixes and corrections from [Mapbox Earcut v2.2.4+](https://github.com/mapbox/earcut).
+- **100% Mapbox Parity**: Faithful port of [Mapbox Earcut v3.2.4](https://github.com/mapbox/earcut/releases/tag/v3.2.4), producing index-for-index identical output.
+- **Delaunay Refinement**: Optional `Refine` post-pass that legalizes interior edges with Delaunay flips for better triangle quality.
 - **No Dependencies**: Self-contained with absolutely zero external package dependencies.
 - **Highly Compatible**: Targets `.NET Standard 2.0`, `.NET Standard 2.1`, and `.NET 10.0` (ideal for Unity, Mono, and modern .NET).
 
@@ -55,7 +56,7 @@ var holeIndices = new int[] { 4 };
 // Triangulate
 List<int> triangles = Cutear.Tessellate(vertices, holeIndices);
 
-// triangles contains: [3, 0, 4, 5, 4, 0, 3, 4, 7, ... ]
+// triangles contains: [0, 4, 7, 5, 4, 0, 5, 0, 1, ... ]
 // Each group of three indices forms a triangle.
 for (int i = 0; i < triangles.Count; i += 3)
 {
@@ -90,7 +91,7 @@ ReadOnlySpan<double> vertices3D = stackalloc double[] {
 // dim: 3 tells the engine that each vertex has 3 coordinates
 List<int> triangles = Cutear.Tessellate(vertices3D, ReadOnlySpan<int>.Empty, dim: 3);
 
-// triangles contains: [1, 0, 3, 3, 2, 1]
+// triangles contains: [1, 0, 3, 1, 3, 2]
 ```
 
 ### GeoJSON / Multi-Dimensional Winding
@@ -105,6 +106,18 @@ var (vertices, holes, dimensions) = Cutear.Flatten(polygon);
 
 List<int> triangles = Cutear.Tessellate(vertices, holes);
 ```
+
+### Delaunay Refinement
+If triangle quality matters, run the optional refinement pass after triangulation. It mutates the
+triangles in place, legalizing interior edges with Delaunay flips while preserving the polygon boundary
+and holes. The triangle count stays the same, but most skinny triangles are removed.
+
+```csharp
+List<int> triangles = Cutear.Tessellate(vertices, holeIndices);
+Cutear.Refine(triangles, vertices);
+```
+
+`Refine` also accepts a `Span<int>`, and an optional `dim` for multi-dimensional coordinates.
 
 ### Object-Oriented / Generic Polygon Triangulation
 ```csharp
